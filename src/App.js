@@ -16,6 +16,14 @@ function App() {
       setIndex(0);
     }
   }, [index, people]);
+
+  useEffect(() => {
+    let slider = setInterval(() => {
+      setIndex(index + 1);
+    }, 3000);
+    return () => clearInterval(slider);
+  }, [index]);
+
   return (
     <section className="section">
       <div className="titles">
@@ -31,7 +39,7 @@ function App() {
             }
             if (
               personIndex === index - 1 ||
-              (index === 0 && personIndex === data.length)
+              (index === 0 && personIndex === data.length - 1)
             ) {
               position = "lastSlide";
             }
