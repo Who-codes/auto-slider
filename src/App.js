@@ -8,16 +8,22 @@ function App() {
   const [index, setIndex] = useState(0);
   return (
     <section className="section">
-      <div className="title">
+      <div className="titles">
         <h2>
           <span>/</span> reviews
         </h2>
         <section className="section-center">
-          {people.map((data, dataIndex) => {
-            const { id, name, image, title, quote } = data;
+          {people.map((person, personIndex) => {
+            const { id, name, image, title, quote } = person;
             let position = "nextSlide";
-            if (index === dataIndex) {
+            if (index === personIndex) {
               position = "activeSlide";
+            }
+            if (
+              personIndex === index - 1 ||
+              (index === 0 && personIndex === data.length)
+            ) {
+              position = "lastSlide";
             }
             return (
               <article className={position} key={id}>
@@ -29,10 +35,10 @@ function App() {
               </article>
             );
           })}
-          <button className="prev">
+          <button className="prev" onClick={() => setIndex(index - 1)}>
             <FiChevronLeft />
           </button>
-          <button className="next">
+          <button className="next" onClick={() => setIndex(index + 1)}>
             <FiChevronRight />
           </button>
         </section>
